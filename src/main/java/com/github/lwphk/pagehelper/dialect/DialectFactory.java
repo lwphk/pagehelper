@@ -1,6 +1,10 @@
 package com.github.lwphk.pagehelper.dialect;
 
 import org.apache.ibatis.session.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.github.lwphk.pagehelper.plugins.PaginationStatementHandlerInterceptor;
 
 /**
  * 
@@ -9,23 +13,24 @@ import org.apache.ibatis.session.Configuration;
  */
 public class DialectFactory {
 
-	public static String dialectClass = null;
+	private static final Logger logger = LoggerFactory.getLogger(PaginationStatementHandlerInterceptor.class);
 
-	public static Dialect buildDialect(Configuration configuration) {
-		if (dialectClass == null) {
+	public static Class<?> clazz = null;
+
+	public static Dialect buildDialect(Configuration configuration) throws ClassNotFoundException, InstantiationException, IllegalAccessException {
+		if (clazz == null) {
 			synchronized (DialectFactory.class) {
-				if (dialectClass == null) {
-					dialectClass = configuration.getVariables().getProperty("dialectClass");
+				if (clazz == null) {
+					String dialectClass = configuration.getVariables().getProperty("dialectClass");
+					if(dialectClass != null && !"".equals(dialectClass)) {
+						clazz = Class.forName(dialectClass);
+					}else {
+						logger.error("dialectClass未配置");
+						throw new RuntimeException("请检查 mybatis-config.xml 中  dialectClass 是否配置正确");
+					}
 				}
 			}
 		}
-		Dialect dialect = null;
-		try {
-			dialect = (Dialect) Class.forName(dialectClass).newInstance();
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println("请检查 mybatis-config.xml 中  dialectClass 是否配置正确?");
-		}
-		return dialect;
+		return (Dialect) clazz.newInstance();
 	}
 }
