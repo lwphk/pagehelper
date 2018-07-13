@@ -1,18 +1,24 @@
 # pagehelper
+
 mybatis 分页插件
 
-git clone https://github.com/lwphk/pagehelper.git
-cd pagehelper
-mvn clean install
+	git clone https://github.com/lwphk/pagehelper.git
+
+	cd pagehelper
+
+	mvn clean install
 
 1.--------------------------pom.xml----------------------------
-<dependency>
+
+	<dependency>
 			<groupId>com.github.lwphk.pagehelper</groupId>
 			<artifactId>pagehelper</artifactId>
 			<version>1.0</version>
-</dependency>
+	</dependency>
+
 
 2.-------------------------mybatis-config.xml------------------
+
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE configuration
         PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
@@ -69,7 +75,8 @@ mvn clean install
 
 3.------------正常配置sqlSessionFactory--------
 
-@Bean(name="sqlSessionFactory")
+
+	@Bean(name="sqlSessionFactory")
 	public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource) throws IOException {
 		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
 		sqlSessionFactoryBean.setDataSource(dataSource);
@@ -79,8 +86,10 @@ mvn clean install
 		//xml文件路径
 		sqlSessionFactoryBean.setMapperLocations("classpath:mybatis");
 		return sqlSessionFactoryBean;
-}
+	}
+
 =================================
+
 使用示例见:pagehelper-demo.zip
 
 
