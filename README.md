@@ -72,8 +72,32 @@ mybatis 分页插件
 				interceptor="com.github.lwphk.pagehelper.plugins.PaginationStatementHandlerInterceptor" />
 		</plugins>
 	</configuration>
+	
+3.--------datasouces-------
+	#datasource config
+	spring.datasource.url=jdbc:mysql://localhost:3306/test?characterEncoding=utf8&useSSL=true
+	spring.datasource.username=root
+	spring.datasource.password=
+	spring.datasource.type=com.alibaba.druid.pool.DruidDataSource
+	spring.datasource.driver-class-name=com.mysql.jdbc.Driver
+	spring.datasource.initialSize=5
+	spring.datasource.minIdle=5
+	spring.datasource.maxActive=20
+	spring.datasource.maxWait=60000
+	spring.datasource.timeBetweenEvictionRunsMillis=60000
+	spring.datasource.minEvictableIdleTimeMillis=300000
+	spring.datasource.validationQuery=SELECT 1 FROM DUAL
+	spring.datasource.testWhileIdle=true
+	spring.datasource.testOnBorrow=false
+	spring.datasource.testOnReturn=false
+	spring.datasource.poolPreparedStatements=true
+	spring.datasource.maxPoolPreparedStatementPerConnectionSize=20
+	spring.datasource.filters=stat,wall,log4j
+	spring.datasource.connectionProperties=druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+	#spring.datasource.filters=stat,wall,log4j,config
+	#spring.datasource.connectionProperties=druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000;config.decrypt=true;config.decrypt.key=
 
-3.------------正常配置sqlSessionFactory--------
+4.------------正常配置sqlSessionFactory--------
 
 
 	@Configuration
