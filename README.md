@@ -74,6 +74,7 @@ mybatis 分页插件
 	</configuration>
 	
 3.--------datasouces-------
+
 	#datasource config
 	spring.datasource.url=jdbc:mysql://localhost:3306/test?characterEncoding=utf8&useSSL=true
 	spring.datasource.username=root
