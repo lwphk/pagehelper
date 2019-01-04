@@ -76,16 +76,27 @@ mybatis 分页插件
 3.------------正常配置sqlSessionFactory--------
 
 
-	@Bean(name="sqlSessionFactory")
-	public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource) throws IOException {
-		SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-		sqlSessionFactoryBean.setDataSource(dataSource);
-		ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
-		//mybatis-config.xml路径
-		sqlSessionFactoryBean.setConfigLocation("mybatis-config.xml");
-		//xml文件路径
-		sqlSessionFactoryBean.setMapperLocations("classpath:mybatis");
-		return sqlSessionFactoryBean;
+	@Configuration
+	@EnableTransactionManagement
+	//mybatis xxxMapper 包路径
+	@MapperScan(basePackages={"com.github.lwphk.demo.dao.mapper"},sqlSessionFactoryRef="sqlSessionFactory")
+	public class MybatisConfiguration{
+	
+		@Bean(name="sqlSessionFactory")
+		public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource) throws IOException {
+			SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
+			sqlSessionFactoryBean.setDataSource(dataSource);
+			ResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+			//mybatis-config.xml路径
+			sqlSessionFactoryBean.setConfigLocation("mybatis-config.xml");
+			//xml文件路径
+			sqlSessionFactoryBean.setMapperLocations("classpath:mybatis");
+			return sqlSessionFactoryBean;
+		}
+	    	@Bean
+	   	public DataSourceTransactionManager annotationDrivenTransactionManager(DataSource dataSource) {
+			return new DataSourceTransactionManager(dataSource);
+	    	}
 	}
 
 =================================
