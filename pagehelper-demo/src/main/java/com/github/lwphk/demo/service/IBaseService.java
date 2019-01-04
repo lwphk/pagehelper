@@ -1,41 +1,34 @@
-package com.github.lwphk.pagehelper.common;
+package com.github.lwphk.demo.service;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
+import com.github.lwphk.pagehelper.common.Page;
 
-
-/**
- * 
- * @author lwp
- * 
- * @param <Model>
- * @param <PK>
- */
-public interface BaseMapper<Entity,PK, Example> {
+public interface IBaseService<Entity,PK,Example> {
 
 	/**
 	 * 数量
 	 * @param example
 	 * @return
 	 */
-	long countByExample(Example example);
+	long count(Example example);
 	
 	/**
 	 * 插入对象
 	 * 
-	 * @param model
+	 * @param Entity
 	 *            对象
 	 */
-	int insertSelective(Entity entity);
+	Entity insert(Entity entity);
 
 	/**
 	 * 更新对象
 	 * 
-	 * @param model
+	 * @param Entity
 	 *            对象
 	 */
 	int updateByPrimaryKeySelective(Entity entity);
+	
 	
 	/**
 	 * 更新对象
@@ -43,7 +36,7 @@ public interface BaseMapper<Entity,PK, Example> {
 	 * @param example
 	 * @return
 	 */
-	int updateByExampleSelective(@Param("record") Entity record, @Param("example") Example example);
+	int updateByExampleSelective(Entity record, Example example);
 
 	/**
 	 * 通过主键, 删除对象
@@ -58,25 +51,30 @@ public interface BaseMapper<Entity,PK, Example> {
 	 * 
 	 * @param id
 	 *            主键
-	 * @return
+	 * @return Entity 对象
 	 */
 	Entity selectByPrimaryKey(PK id);
 
 	/**
 	 * 
 	 * @param example
-	 *            查询封装器
-	 * @param page
-	 *            分页
+	 * @param pageSize
+	 * @param pageNo
 	 * @return
 	 */
-	public List<Entity> selectByExample(Example example, Page<Entity> page);
+	public Page<Entity> selectByExample(Example example, int pageNo, int pageSize);
 	
 	/**
-	 * 返回结果集
-	 * @param example 查询封装器
+	 * 
+	 * @param example
 	 * @return
 	 */
 	public List<Entity> selectByExample(Example example);
-		
+	
+	/**
+	 * 
+	 * @param example
+	 * @return
+	 */
+	public Entity selectByExampleSingleResult(Example example);
 }
