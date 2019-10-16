@@ -109,6 +109,7 @@ public class PaginationStatementHandlerInterceptor implements Interceptor {
 				count = rs.getInt(1);
 			}
 		} catch (Exception e) {
+			e.printStackTrace();
 			logger.error("获取总记录数出错");
 		}finally {
 			if(rs != null) {
