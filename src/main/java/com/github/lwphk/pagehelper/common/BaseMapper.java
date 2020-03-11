@@ -52,6 +52,10 @@ public interface BaseMapper<Entity,PK, Example> {
 	 *            主键
 	 */
 	int deleteByPrimaryKey(PK id);
+	
+	
+	
+	int deleteByExample(Example example);
 
 	/**
 	 * 通过主键, 查询对象
@@ -78,5 +82,7 @@ public interface BaseMapper<Entity,PK, Example> {
 	 * @return
 	 */
 	public List<Entity> selectByExample(Example example);
+	
+	
 		
 }
